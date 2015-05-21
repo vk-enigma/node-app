@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+// Prepare configuration
+var config  = require('../lib/config');
+var clc     = require('cli-color');
+
+var cluster = require('cluster');
+
+cluster.setupMaster({
+    exec: '.'
+});
+
+cluster.on('exit', function (worker) {
+    cluster.fork();
+});
+
+var workersCount = config.get('app:workers');
+if (workersCount === 'auto') {
+    workersCount = require('os').cpus().length;
+} else {
+    workersCount = parseInt(workersCount, 10);
+}
+
+if (isNaN(workersCount)) {
+    console.error(clc.bold.red('Invalid workers count'));
+    process.exit(1);
+}
+
+for (var i = 0; i < workersCount; ++i) {
+    cluster.fork();
+}

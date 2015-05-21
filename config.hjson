@@ -1,0 +1,6 @@
+{
+    app: {
+        # count of app's workers/instances (by default it equals count of CPU's cores)
+        workers: auto
+    }
+}
