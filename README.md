@@ -8,6 +8,7 @@
 2. git clone git@github.com:vk-enigma/node-app.git vk-enigma-node
 3. cd vk-enigma-node && npm install
 4. npm start
+
 > @todo Nginx/Apache configuration as reverse-proxy, upstart/systemd configs
 
 ## Contribute
